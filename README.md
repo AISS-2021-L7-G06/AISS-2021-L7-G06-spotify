@@ -5,17 +5,51 @@
 Spotify Web API Java [![Build Status](https://travis-ci.org/thelinmichael/spotify-web-api-java.svg?branch=master)](https://travis-ci.org/thelinmichael/spotify-web-api-java) [![codecov](https://codecov.io/gh/thelinmichael/spotify-web-api-java/branch/develop/graph/badge.svg)](https://codecov.io/gh/thelinmichael/spotify-web-api-java) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/thelinmichael/spotify-web-api-java.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/thelinmichael/spotify-web-api-java/context:java)
 ====================
 
-This is a Java wrapper/client for the [Spotify Web API](https://developer.spotify.com/web-api/).
+The Spotify Web API provides external applications with access to Spotify content such as album and playlist data in a programmatic way using Java.
+The base address of Spotify Web API Java is https://api.spotify.com. The API provides a set of endpoints based on simple REST principles, each with its own unique path. These endpoints return JSON metadata about music artists, albums and tracks, directly from the Spotify data catalog.
+
 
 ## Table of Contents
-1. **[Installation](#Installation)**
+
+1. **[Operating Summary](#Operating-Summary)**
+2. **[Some Interesting Metrics](#Some-Interesting-Metrics)**
+3. **[Installation](#Installation)**
     1. **[Jitpack](#Jitpack)**
-2. **[Documentation](#Documentation)**
-3. **[General Usage](#General-Usage)**
+4. **[Documentation](#Documentation)**
+5. **[General Usage](#General-Usage)**
     1. **[Authorization](#Authorization)**
-4. **[Examples](#Examples)**
-5. **[Contributions](#Contributions)**
+6. **[Examples](#Examples)**
+7. **[Contributions](#Contributions)**
     1. **[Code Overview](#Code-Overview)**
+
+
+## Operating Summary
+
+First, for the end-user application to obtain data from Spotify, it must obtain an authorization. Spotify authorizes your application to access the Spotify platform. This should
+be used whenever we want to obtain some kind of information from Spotify, whether private (about a user) or public (about an artist, for example). For this we will have to
+register our application in Spotify Developers, where we will be able to configure and see some of the most relevant parameters about our application and the use it is given.
+An example of the app log screen is shown in the figure. In addition, if we want to access the private information of a particular user, we will first have to get access.
+
+To do this, the user will be redirected to the Spotify account service, where he will be informed of the data to which he will have access and where, after accepting, he will be
+redirected to a URI that we have previously configured. After this, a code is returned that is exchanged for information access tokens.
+All this data exchange flow is done using the REST principles. That is to say, we access specific URIs (endpoints) providing in it key sets:value that will be the data that we
+will pass to the server. This, in response, will return JSON objects with the information we have requested. 
+
+To make these authorizations we have at our disposal 3 ways to do so. Each one of them has to be provided with one information or another and each one of them gives us access to some Spotify data or others. This is discussed in point 4.1.
+
+![AISS-2021-L7-G06-raugalroc](docs/application_log.PNG)    
+
+
+## Some Interesting Metrics
+
+Some of the results obtained after using SonarCloud to evaluate the quality of the project code, are the following:
+
+- SonarCloud detected 2 system bugs. In addition, this attribute is labeled with the letter 'C', which means there is at least one major bug.
+- SonarCloud has not detected any vulnerabilities in the system, therefore it has the ability to control and monitor who can perform what actions in what resources.
+- The SonarCloud analysis shows a technical debt of 15 days, which means a debt ratio of 1.7%. SonarCloud classifies maintenance as 'A', having a debt ratio of less than 5%. It’s in the class 'GetRecommendationsRequest.java' where the largest technical debt is located (1 day and 2 hours).
+- The system has a high percentage of coverage of test cases (66.4%). The set of tests that ensure that the code works correctly, composed of 288 tests, takes only about 3 seconds to execute.
+- Another metric analyzed by SonarCloud, code duplications, is noteworthy. The density of the duplicate lines is quite high, as it is 21.1%. However, most files with duplicate lines or blocks are in the same directory, as there are files that are a simplification of an existing file. For example: "Album.java" and "AlbumSimplified.java".
+
 
 ## Installation
 
